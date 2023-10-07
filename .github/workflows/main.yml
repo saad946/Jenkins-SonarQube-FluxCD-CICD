@@ -27,19 +27,15 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project
-      - name: java version
-        run: java -version
-      - name: maven version
-        run: mvn --version
-      - name: python version
-        run: python --version
-      - name: docker version
-        run: docker -v
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Install Helm-Datree
+        run: |
+          helm plugin install https://github.com/datreeio/helm-datree
+          helm plugin update datree
+          helm datree version
+          helm datree config set offline local
+      - name: Run Datree Tests
+        run: helm datree test kubernetes/myapp/
         
-      - name: Run Datree Policy Check
-        uses: datreeio/action-datree@main
-        with:
-          path: 'kubernetes/myapp'
-          cliArguments: '--only-k8s-files'  
+ 
