@@ -12,5 +12,5 @@ image:
 
 service:
   type: nodePort
-  port: 8080
+  POrt: 8080
 
