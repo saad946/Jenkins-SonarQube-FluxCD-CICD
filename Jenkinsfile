@@ -20,7 +20,7 @@ pipeline{
 
                     sh 'pwd'
 
-                    sh 'mvn clean package sonar:sonar'
+                    sh 'mvn clean package sonar:sonar -e'
                  }
                 }
             }
