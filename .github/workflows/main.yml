@@ -36,6 +36,8 @@ jobs:
           helm datree version
           helm datree config set offline local
       - name: Run Datree Tests
-        run: helm datree test --path kubernetes/myapp/
+        run: |
+          cd  kubernetes/myapp/
+          helm datree test .
         
  
