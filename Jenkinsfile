@@ -85,6 +85,7 @@ pipeline{
                         sh "docker build -t ${IMAGE_REPO_NAME}:${VERSION} ."
                         sh "docker tag ${IMAGE_REPO_NAME}:$VERSION ${REPOSITORY_URI}:${VERSION}"
                         sh "docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}:${VERSION}"
+                        sh "docker rmi ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}:${VERSION}"
          }
         }
       }
