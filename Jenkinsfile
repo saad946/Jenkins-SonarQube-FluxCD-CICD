@@ -1,33 +1,73 @@
 pipeline{
-
+    
     agent any 
-
-    stages{
-
-        stage('sonar quality check'){
-
-            agent{
-
-                docker {
-                    image 'maven'
-                }
-            }
+    
+    stages {
+        
+        stage('Git Checkout'){
+            
             steps{
-
+                
                 script{
-
-
-
-                    sh 'pwd'
-                    sh 'ls -la'  // List files in the current directory for debugging
-                    sh 'echo $MAVEN_HOME'  // Print Maven home for debugging
                     
-                    sh 'mvn clean package sonar:sonar -X'
-
-                    
-                 
+                    git branch: 'main', url: 'https://github.com/saad946/Jenkins-SonarQube-FluxCD-CICD.git'
                 }
             }
         }
-    }
+        stage('UNIT testing'){
+            
+            steps{
+                
+                script{
+                    
+                    sh 'mvn test'
+                }
+            }
+        }
+        stage('Integration testing'){
+            
+            steps{
+                
+                script{
+                    
+                    sh 'mvn verify -DskipUnitTests'
+                }
+            }
+        }
+        stage('Maven build'){
+            
+            steps{
+                
+                script{
+                    
+                    sh 'mvn clean install'
+                }
+            }
+        }
+        stage('Static code analysis'){
+            
+            steps{
+                
+                script{
+                    
+                    withSonarQubeEnv(credentialsId: 'sonars-tokens') {
+                        
+                        sh 'mvn clean package sonar:sonar'
+                    }
+                   }
+                    
+                }
+            }
+            stage('Quality Gate Status'){
+                
+                steps{
+                    
+                    script{
+                        
+                        waitForQualityGate abortPipeline: false, credentialsId: 'sonars-tokens'
+                    }
+                }
+            }
+        }
+        
 }
