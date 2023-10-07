@@ -16,7 +16,7 @@ pipeline{
 
                 script{
 
-                   withSonarQubeEnv(credentialsId: 'sonars-tokens') {
+
 
                     sh 'pwd'
                     sh 'ls -la'  // List files in the current directory for debugging
@@ -25,7 +25,7 @@ pipeline{
                     sh 'mvn clean package sonar:sonar -X'
 
                     
-                 }
+                 
                 }
             }
         }
