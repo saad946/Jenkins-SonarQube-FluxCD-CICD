@@ -35,6 +35,11 @@ jobs:
         run: python --version
       - name: docker version
         run: docker -v
-      - name: terrafrom version
-        run: terraform --version
-      
+      - name: Checkout
+        uses: actions/checkout@v2
+        
+      - name: Run Datree Policy Check
+        uses: datreeio/action-datree@main
+        with:
+          path: 'kubernetes/myapp'
+          cliArguments: '--only-k8s-files'  
