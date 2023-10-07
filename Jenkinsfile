@@ -6,7 +6,7 @@ pipeline{
         AWS_ACCOUNT_ID="982291412478"
         AWS_DEFAULT_REGION="ap-southeast-1"
         IMAGE_REPO_NAME="jenkins-pipeline"
-        VERSION = "${env.BUILD.ID}"
+        VERSION = "${env.BUILD_ID}"
         REPOSITORY_URI = "982291412478.dkr.ecr.ap-southeast-1.amazonaws.com/jenkins-pipeline"
     }
     
