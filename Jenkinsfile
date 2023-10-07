@@ -1,6 +1,14 @@
 pipeline{
     
     agent any 
+
+    environment {
+        AWS_ACCOUNT_ID="982291412478"
+        AWS_DEFAULT_REGION="ap-southeast-1"
+        IMAGE_REPO_NAME="jenkins-pipeline"
+        VERSION = "${env.BUILD.ID}"
+        REPOSITORY_URI = "982291412478.dkr.ecr.ap-southeast-1.amazonaws.com/jenkins-pipeline"
+    }
     
     stages {
         
@@ -68,6 +76,34 @@ pipeline{
                     }
                 }
             }
+            stage('Logging into AWS ECR') {
+                steps {
+                    script {
+                        sh """aws ecr get-login-password --region ${AWS_DEFAULT_REGION} | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"""
+                }
+                 
+            }
+        }
+        
+  
+        // Building Docker images
+            stage('Building image') {
+                steps{
+                    script {
+                        dockerImage = docker.build "${IMAGE_REPO_NAME}:${VERSION}"
+        }
+      }
+    }
+   
+        // Uploading Docker images into AWS ECR
+            stage('Pushing to ECR') {
+                steps{  
+                    script {
+                        sh """docker tag ${IMAGE_REPO_NAME}:${IMAGE_TAG} ${REPOSITORY_URI}:$VERSION"""
+                        sh """docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}:${VERSION}"""
+         }
+        }
+      }
         }
         
 }
