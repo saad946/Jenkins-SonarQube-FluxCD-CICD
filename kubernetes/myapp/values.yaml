@@ -11,6 +11,6 @@ image:
   Tag: IMAGE_TAG
 
 service:
-  Type: NodePort
+  type: NodePort
   port: 8080
 
