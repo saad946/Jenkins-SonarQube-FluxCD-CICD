@@ -6,7 +6,7 @@ metadata:
     {{- include "myapp.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
-  Ports:
+  prts:
     - port: {{ .Values.service.port }}
       targetPort: http
       protocol: TCP
