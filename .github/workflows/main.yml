@@ -38,6 +38,6 @@ jobs:
       - name: Run Datree Tests
         run: 
           
-          helm datree test kubernetes/myapp/ --no-policies
+          helm datree test kubernetes/myapp/ 
         
  
