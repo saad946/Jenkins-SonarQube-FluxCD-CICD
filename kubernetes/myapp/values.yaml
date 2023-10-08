@@ -11,6 +11,6 @@ image:
   tag: IMAGE_TAG
 
 service:
-  type: NodePort
-  port: 8080
+  type: LoadBalancer
+
 
