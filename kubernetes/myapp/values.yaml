@@ -5,10 +5,10 @@
 replicaCount: 2
 
 image:
-  repository:: IMAGE_NAME
+  repository:: ECR Repo URL
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: IMAGE_TAG
+  tag: 2
 
 service:
   type: LoadBalancer
