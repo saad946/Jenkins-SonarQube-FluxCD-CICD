@@ -5,7 +5,7 @@
 replicaCount: 2
 
 image:
-  repository:: ECR Repo URL
+  repository: ECR Repo URL
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: 2
