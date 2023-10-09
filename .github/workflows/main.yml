@@ -29,6 +29,11 @@ jobs:
           echo test, and deploy your project
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Install and run Spectral CI
+        uses: spectralops/spectral-github-action@v3
+        with:
+          spectral-dsn: ${{ env.SPECTRAL_DSN }}
+          spectral-args: scan --ok --engines secrets,oss --include-tags base,audit
       - name: Install Helm-Datree
         run: |
           helm plugin install https://github.com/datreeio/helm-datree
