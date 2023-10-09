@@ -39,5 +39,11 @@ jobs:
         run: 
           
           helm datree test kubernetes/myapp/ 
+          
+      - name: Install and run Spectral CI
+        uses: spectralops/spectral-github-action@v3
+        with:
+          spectral-dsn: ${{ env.SPECTRAL_DSN }}
+          spectral-args: scan --ok --engines secrets,oss --include-tags base,audit
         
  
